@@ -1,0 +1,130 @@
+<div class="min-h-screen bg-surface-50 p-8">
+  <div class="max-w-7xl mx-auto space-y-8">
+    <app-header></app-header>
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-primary-600 mb-2">Dashboard</h1>
+      <p class="text-lg text-text-color-secondary">Product Inventory Management</p>
+    </div>
+
+    <!-- Products Table -->
+    <p-card styleClass="shadow-lg">
+      <ng-template pTemplate="header">
+        <div class="bg-primary-500 text-white p-6 rounded-t-lg">
+          <h2 class="text-2xl font-semibold">Product Inventory</h2>
+          <p class="text-primary-100 mt-1">Manage your product catalog</p>
+        </div>
+      </ng-template>
+
+      <div class="p-6">
+        <p-table
+          [value]="products"
+          [paginator]="true"
+          [rows]="5"
+          [rowsPerPageOptions]="[5, 10, 25]"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [globalFilterFields]="['name', 'category', 'status']"
+          styleClass="p-datatable-striped"
+          responsiveLayout="scroll">
+
+          <!-- Table Header -->
+          <ng-template pTemplate="caption">
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-semibold text-text-color">Product List</span>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  placeholder="Search products..."
+                  class="w-80"
+                  (input)="onGlobalFilter($event)" />
+              </span>
+            </div>
+          </ng-template>
+
+          <!-- Column Definitions -->
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="bg-surface-100 text-text-color font-semibold p-4">ID</th>
+              <th class="bg-surface-100 text-text-color font-semibold p-4">Product Name</th>
+              <th class="bg-surface-100 text-text-color font-semibold p-4">Category</th>
+              <th class="bg-surface-100 text-text-color font-semibold p-4">Price</th>
+              <th class="bg-surface-100 text-text-color font-semibold p-4">Status</th>
+              <th class="bg-surface-100 text-text-color font-semibold p-4">Quantity</th>
+            </tr>
+          </ng-template>
+
+          <!-- Row Template -->
+          <ng-template pTemplate="body" let-product>
+            <tr class="hover:bg-surface-50">
+              <td class="p-4 text-text-color">{{ product.id }}</td>
+              <td class="p-4">
+                <span class="font-medium text-text-color">{{ product.name }}</span>
+              </td>
+              <td class="p-4">
+                <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
+                  {{ product.category }}
+                </span>
+              </td>
+              <td class="p-4">
+                <span class="font-semibold text-text-color">${{ product.price }}</span>
+              </td>
+              <td class="p-4">
+                <span
+                  [class]="getStatusClass(product.status)"
+                  class="px-3 py-1 rounded-full text-sm font-medium">
+                  {{ product.status }}
+                </span>
+              </td>
+              <td class="p-4">
+                <span
+                  [class]="getQuantityClass(product.quantity)"
+                  class="font-medium">
+                  {{ product.quantity }}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+
+          <!-- Empty State -->
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6" class="text-center p-8 text-text-color-secondary">
+                <i class="pi pi-info-circle text-2xl mb-2 block"></i>
+                No products found.
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+    </p-card>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <p-card styleClass="shadow-md border-l-4 border-primary-500">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary-600 mb-2">{{ getTotalProducts() }}</div>
+          <div class="text-text-color-secondary">Total Products</div>
+        </div>
+      </p-card>
+
+      <p-card styleClass="shadow-md border-l-4 border-green-500">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-green-600 mb-2">{{ getInStockProducts() }}</div>
+          <div class="text-text-color-secondary">In Stock</div>
+        </div>
+      </p-card>
+
+      <p-card styleClass="shadow-md border-l-4 border-red-500">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-red-600 mb-2">{{ getOutOfStockProducts() }}</div>
+          <div class="text-text-color-secondary">Out of Stock</div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

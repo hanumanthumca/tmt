@@ -1,0 +1,25 @@
+<div class="app-layout">
+  <app-header></app-header>
+
+  <div class="breadcrumb-bar">
+    <nav class="breadcrumb-nav">
+      <a routerLink="/login">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">{{ activeTabLabel }}</span>
+    </nav>
+  </div>
+
+  <div class="tabs-wrapper">
+    <nav class="route-tabs">
+      <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Login</a>
+      <a routerLink="/request" routerLinkActive="active">Request</a>
+      <a routerLink="/portal" routerLinkActive="active">Portal</a>
+      <a routerLink="/status" routerLinkActive="active">Status</a>
+      <a routerLink="/my-tasks" routerLinkActive="active">My Tasks</a>
+    </nav>
+  </div>
+
+  <main class="layout-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

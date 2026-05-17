@@ -1,0 +1,146 @@
+<section class="request-page">
+  <div class="request-header">
+    <div>
+      <h1>Request Details (Requester)</h1>
+    </div>
+    <div class="request-actions">
+      <button type="button" class="primary-button" (click)="openNewRequestDialog()">+ New Request</button>
+      <button type="button" class="secondary-button">REF ESR No.</button>
+    </div>
+  </div>
+
+  <div class="request-placeholder">
+    <p class="request-instruction">Click the <strong>New Request</strong> button to open the request form.</p>
+  </div>
+
+  <!-- Requests Data Table -->
+  <p-table [value]="requestsData" [tableStyle]="{ 'min-width': '50rem' }" class="requests-table" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} requests">
+    <ng-template #header>
+      <tr>
+        <th style="width: 4rem"></th>
+        <th>ESR No</th>
+        <th>Requestor Name</th>
+        <th>OEM</th>
+        <th>ZF Project Number</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-request>
+      <tr>
+        <td>
+          <p-button icon="pi pi-eye" [rounded]="true" [text]="true" severity="info"  />
+        </td>
+        <td>{{ request.esrNo }}</td>
+        <td>{{ request.name }}</td>
+        <td>{{ request.oem }}</td>
+        <td>{{ request.zfProjectNumber }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <section *ngIf="submitted" class="submission-summary">
+    <h3>Request submitted successfully</h3>
+    <pre>{{ requestModel | json }}</pre>
+  </section>
+
+  <!-- New Request Dialog -->
+  <p-dialog [(visible)]="displayNewRequestDialog" [header]="'Create a New Request'" [modal]="true" [style]="{width: '60vw'}" [breakpoints]="{'960px': '90vw', '640px': '100vw'}">
+    <form #newRequestForm="ngForm" (ngSubmit)="onCreateNewRequest(newRequestForm)" novalidate>
+      <div class="request-grid">
+        <div class="form-group">
+          <label for="dialogEsrNo">ESR No</label>
+          <input id="dialogEsrNo" name="esrNo" type="text" [(ngModel)]="newRequestModel.esrNo" placeholder="ESR No" required #dialogEsrNoField="ngModel" />
+          <div class="field-error" *ngIf="dialogEsrNoField.invalid && (dialogEsrNoField.touched || newRequestForm.submitted)">ESR No is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogName">Name</label>
+          <input id="dialogName" name="name" type="text" [(ngModel)]="newRequestModel.name" placeholder="Requester name" required #dialogNameField="ngModel" />
+          <div class="field-error" *ngIf="dialogNameField.invalid && (dialogNameField.touched || newRequestForm.submitted)">Name is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogLocation">Location</label>
+          <input id="dialogLocation" name="location" type="text" [(ngModel)]="newRequestModel.location" placeholder="e.g., ALD" required #dialogLocationField="ngModel" />
+          <div class="field-error" *ngIf="dialogLocationField.invalid && (dialogLocationField.touched || newRequestForm.submitted)">Location is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogOem">OEM</label>
+          <input id="dialogOem" name="oem" type="text" [(ngModel)]="newRequestModel.oem" placeholder="e.g., BMW / MB / STELLANTIS" required #dialogOemField="ngModel" />
+          <div class="field-error" *ngIf="dialogOemField.invalid && (dialogOemField.touched || newRequestForm.submitted)">OEM is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogProgramName">Program Name</label>
+          <input id="dialogProgramName" name="programName" type="text" [(ngModel)]="newRequestModel.programName" placeholder="e.g., NAx / X540 / STLA F2x" required #dialogProgramNameField="ngModel" />
+          <div class="field-error" *ngIf="dialogProgramNameField.invalid && (dialogProgramNameField.touched || newRequestForm.submitted)">Program Name is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogReqId">Req ID</label>
+          <input id="dialogReqId" name="reqId" type="text" [(ngModel)]="newRequestModel.reqId" placeholder="e.g., MB_X540_CAB_LIP" required #dialogReqIdField="ngModel" />
+          <div class="field-error" *ngIf="dialogReqIdField.invalid && (dialogReqIdField.touched || newRequestForm.submitted)">Req ID is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogZfProjectNumber">ZF Project Number</label>
+          <input id="dialogZfProjectNumber" name="zfProjectNumber" type="text" [(ngModel)]="newRequestModel.zfProjectNumber" placeholder="e.g., 8600000163" required #dialogZfProjectNumberField="ngModel" />
+          <div class="field-error" *ngIf="dialogZfProjectNumberField.invalid && (dialogZfProjectNumberField.touched || newRequestForm.submitted)">ZF Project Number is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogRequestedDeliveryDate">Requested Delivery Date</label>
+          <input id="dialogRequestedDeliveryDate" name="requestedDeliveryDate" type="date" [(ngModel)]="newRequestModel.requestedDeliveryDate" required #dialogRequestedDeliveryDateField="ngModel" />
+          <div class="field-error" *ngIf="dialogRequestedDeliveryDateField.invalid && (dialogRequestedDeliveryDateField.touched || newRequestForm.submitted)">Requested Delivery Date is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogProductType">Product Type</label>
+          <select id="dialogProductType" name="productType" [(ngModel)]="newRequestModel.productType" required #dialogProductTypeField="ngModel">
+            <option value="">Select...</option>
+            <option value="electrical">Electrical</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="software">Software</option>
+            <option value="system">System</option>
+          </select>
+          <div class="field-error" *ngIf="dialogProductTypeField.invalid && (dialogProductTypeField.touched || newRequestForm.submitted)">Product Type is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogTypeOfWork">Type of Work / Study</label>
+          <select id="dialogTypeOfWork" name="typeOfWork" [(ngModel)]="newRequestModel.typeOfWork" required #dialogTypeOfWorkField="ngModel">
+            <option value="">Select...</option>
+            <option value="Volume & Coverage">Volume & Coverage</option>
+            <option value="Design Study">Design Study</option>
+            <option value="Feasibility">Feasibility</option>
+            <option value="Validation">Validation</option>
+          </select>
+          <div class="field-error" *ngIf="dialogTypeOfWorkField.invalid && (dialogTypeOfWorkField.touched || newRequestForm.submitted)">Type of Work is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogNumberOfDesigns">No. of Designs</label>
+          <input id="dialogNumberOfDesigns" name="numberOfDesigns" type="text" [(ngModel)]="newRequestModel.numberOfDesigns" placeholder="e.g., 1, 2, 3" required #dialogNumberOfDesignsField="ngModel" />
+          <div class="field-error" *ngIf="dialogNumberOfDesignsField.invalid && (dialogNumberOfDesignsField.touched || newRequestForm.submitted)">Number of Designs is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dialogEstimatedHours">Input Estimated Hours</label>
+          <input id="dialogEstimatedHours" name="estimatedHours" type="text" [(ngModel)]="newRequestModel.estimatedHours" placeholder="e.g., 60" required #dialogEstimatedHoursField="ngModel" />
+          <div class="field-error" *ngIf="dialogEstimatedHoursField.invalid && (dialogEstimatedHoursField.touched || newRequestForm.submitted)">Estimated Hours is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="dialogOtherDetails">Other Details</label>
+        <textarea id="dialogOtherDetails" name="otherDetails" [(ngModel)]="newRequestModel.otherDetails" placeholder="Describe the requirement..." required #dialogOtherDetailsField="ngModel"></textarea>
+        <div class="field-error" *ngIf="dialogOtherDetailsField.invalid && (dialogOtherDetailsField.touched || newRequestForm.submitted)">Other Details are required.</div>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="submit-button">Create</button>
+        <button type="button" class="secondary-button" (click)="closeNewRequestDialog()">Cancel</button>
+      </div>
+    </form>
+  </p-dialog>
+</section>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 120" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .zf-text { font-family: Arial, sans-serif; font-weight: bold; }
+      .lifetec-text { font-family: Arial, sans-serif; font-weight: bold; font-style: italic; }
+    </style>
+  </defs>
+  
+  <!-- ZF Circle Logo -->
+  <g id="zf-circle">
+    <!-- Outer circle -->
+    <circle cx="45" cy="60" r="35" fill="none" stroke="white" stroke-width="2"/>
+    <!-- Inner horizontal line -->
+    <line x1="15" y1="60" x2="75" y2="60" stroke="white" stroke-width="1.5"/>
+    <!-- ZF Text -->
+    <text x="45" y="72" font-size="42" font-weight="bold" fill="white" text-anchor="middle" class="zf-text">ZF</text>
+  </g>
+  
+  <!-- LIFETEC Text in Italics -->
+  <text x="110" y="80" font-size="56" font-weight="bold" fill="white" class="lifetec-text" letter-spacing="2">LIFETEC</text>
+  
+  <!-- Horizontal line under LIFETEC -->
+  <line x1="110" y1="95" x2="340" y2="95" stroke="white" stroke-width="2"/>
+</svg>

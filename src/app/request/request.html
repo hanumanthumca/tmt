@@ -17,22 +17,42 @@
   <p-table [value]="requestsData" [tableStyle]="{ 'min-width': '50rem' }" class="requests-table" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} requests">
     <ng-template #header>
       <tr>
-        <th style="width: 4rem"></th>
+       
         <th>ESR No</th>
         <th>Requestor Name</th>
         <th>OEM</th>
         <th>ZF Project Number</th>
+         <th style="width: 4rem">Icon</th>
       </tr>
     </ng-template>
     <ng-template #body let-request>
       <tr>
-        <td>
-          <p-button icon="pi pi-eye" [rounded]="true" [text]="true" severity="info"  />
-        </td>
+        <!-- <td>
+          <p-button icon="pi pi-eye" [rounded]="true" [text]="true" severity="info"  /> 
+        </td> -->
+       
+
         <td>{{ request.esrNo }}</td>
         <td>{{ request.name }}</td>
         <td>{{ request.oem }}</td>
         <td>{{ request.zfProjectNumber }}</td>
+         <td>
+  <button pButton 
+          type="button" 
+          icon="pi pi-eye" 
+          class="p-button-rounded p-button-text p-button-info" 
+          (click)="viewRequest()"
+          >
+  </button>
+
+  <!-- <button pButton 
+          type="button" 
+          icon="pi pi-eye" 
+          class="p-button-rounded p-button-text p-button-info" 
+          (click)="viewRequest(request)"
+          >
+  </button> -->
+</td>
       </tr>
     </ng-template>
   </p-table>
@@ -41,6 +61,16 @@
     <h3>Request submitted successfully</h3>
     <pre>{{ requestModel | json }}</pre>
   </section>
+
+  <!-- View Dialogu box -->
+   <p-dialog header="Request Details" [(visible)]="displayDialog" [modal]="true" [style]="{width: '30vw'}">
+  <div *ngIf="selectedRequest">
+    <p><strong>ESR No:</strong> 111{{selectedRequest.esrNo}}</p>
+    <p><strong>Requestor Name:</strong> {{selectedRequest.name}}</p>
+    <p><strong>OEM:</strong> {{selectedRequest.oem}}</p>
+    <p><strong>ZF Project Number:</strong> {{selectedRequest.zfProjectNumber}}</p>
+  </div>
+</p-dialog>
 
   <!-- New Request Dialog -->
   <p-dialog [(visible)]="displayNewRequestDialog" [header]="'Create a New Request'" [modal]="true" [style]="{width: '60vw'}" [breakpoints]="{'960px': '90vw', '640px': '100vw'}">

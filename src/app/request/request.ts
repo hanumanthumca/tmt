@@ -14,7 +14,16 @@ import { ButtonModule } from 'primeng/button';
 })
 export class RequestComponent {
   displayNewRequestDialog = false;
-
+   displayDialog: boolean = false;
+  selectedRequest: any = null;
+//  viewRequest(request: any) {
+//     this.selectedRequest = request;
+//     this.displayDialog = true;
+//   }
+  viewRequest() {
+    //this.selectedRequest = request;
+    this.displayDialog = true;
+  }
   requestsData = [
     { esrNo: 'ESR001', name: 'John Smith', oem: 'BMW', zfProjectNumber: '8600000163' },
     { esrNo: 'ESR002', name: 'Sarah Johnson', oem: 'MB', zfProjectNumber: '8600000164' },

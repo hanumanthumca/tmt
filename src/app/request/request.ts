@@ -20,10 +20,40 @@ export class RequestComponent {
 //     this.selectedRequest = request;
 //     this.displayDialog = true;
 //   }
-  viewRequest() {
+  viewRequest1() {
     //this.selectedRequest = request;
     this.displayDialog = true;
   }
+onSaveRequest(form: NgForm) {
+  if (form.invalid) {
+    form.control.markAllAsTouched();
+    return;
+  }
+  console.log('Updated request:', this.selectedRequest);
+  this.displayDialog = false;
+}
+onDataInFileSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    console.log('Data In file selected:', file.name);
+    // You can store it in selectedRequest or upload to backend
+    this.selectedRequest.dataInFile = file;
+  }
+}
+
+onDataOutFileSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    console.log('Data Out file selected:', file.name);
+    this.selectedRequest.dataOutFile = file;
+  }
+}
+
+
+  viewRequest(request: any) {
+  this.selectedRequest = request;
+  this.displayDialog = true;
+}
   requestsData = [
     { esrNo: 'ESR001', name: 'John Smith', oem: 'BMW', zfProjectNumber: '8600000163' },
     { esrNo: 'ESR002', name: 'Sarah Johnson', oem: 'MB', zfProjectNumber: '8600000164' },

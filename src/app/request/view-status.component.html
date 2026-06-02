@@ -1,0 +1,60 @@
+<section class="status-page">
+  <div class="status-header">
+    <div>
+      <h2>View Status</h2>
+      <p class="status-subtitle">Current status for {{ request?.esrNo }}</p>
+    </div>
+    <button type="button" pButton label="Close" class="p-button-secondary" (click)="close.emit()"></button>
+  </div>
+
+  <!-- <div class="status-grid">
+    <div>
+      <label>ESR No</label>
+      <div>{{ request?.esrNo || '-' }}</div>
+    </div>
+    <div>
+      <label>Requestor</label>
+      <div>{{ request?.name || '-' }}</div>
+    </div>
+    <div>
+      <label>OEM</label>
+      <div>{{ request?.oem || '-' }}</div>
+    </div>
+    <div>
+      <label>ZF Project Number</label>
+      <div>{{ request?.zfProjectNumber || '-' }}</div>
+    </div>
+    <div>
+      <label>Status</label>
+      <div class="status-pill">{{ statusText }}</div>
+    </div>
+    <div>
+      <label>Last Updated</label>
+      <div>{{ statusDate }}</div>
+    </div>
+  </div> -->
+
+  <div class="status-panel">
+    <h3>Project Status Timeline</h3>
+    <p-table [value]="timelineRows" [tableStyle]="{ 'min-width': '45rem' }" class="status-table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Person</th>
+          <th>Status</th>
+          <th>Details</th>
+          <th>When</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr>
+          <td>{{ row.person }}</td>
+          <td>{{ row.status }}</td>
+          <td>{{ row.details }}</td>
+          <td>{{ row.when }}</td>
+          <td>{{ row.action }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</section>

@@ -192,3 +192,47 @@
 .requests-table :deep(.p-datatable .p-datatable-tbody > tr:hover) {
   background: #f8fafc;
 }
+
+/* Compact dialog styles for request view */
+.compact-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  align-items: end;
+}
+.summary-grid label { font-weight: 600; color: #334155; font-size: 0.85rem; }
+.summary-grid input, .summary-grid select { padding: 0.35rem 0.5rem; border-radius: 0.4rem; }
+
+details { background: #fff; border: 1px solid #e6eef8; border-radius: 6px; padding: 0.5rem; }
+details[open] { box-shadow: 0 2px 6px rgba(2,6,23,0.04); }
+details summary { cursor: pointer; font-weight: 700; padding: 0.35rem 0.5rem; }
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.tracker-grid { display: grid; grid-template-columns: 1fr 220px; gap: 0.75rem; align-items: start; padding: 0.5rem 0; }
+.tracker-grid input[type="file"] { width: 100%; }
+.tracker-grid .note { margin: 0.25rem 0; font-size: 0.8rem; color: #64748b; }
+
+.compact-dialog textarea { width: 100%; padding: 0.4rem 0.5rem; border-radius: 0.4rem; }
+.compact-dialog input, .compact-dialog select { border: 1px solid #cbd5e1; }
+
+.footer-actions { display: flex; gap: 0.5rem; }
+
+@media screen and (max-width: 900px) {
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-grid { grid-template-columns: 1fr; }
+  .tracker-grid { grid-template-columns: 1fr; }
+}
+

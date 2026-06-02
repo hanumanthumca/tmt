@@ -4,18 +4,22 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { ViewRequestComponent } from './view-request.component';
+import { ViewStatusComponent } from './view-status.component';
 
 @Component({
   selector: 'app-request',
   standalone: true,
-  imports: [CommonModule, FormsModule, JsonPipe, DialogModule, TableModule, ButtonModule],
+  imports: [CommonModule, FormsModule, JsonPipe, DialogModule, TableModule, ButtonModule, ViewRequestComponent, ViewStatusComponent],
   templateUrl: './request.html',
   styleUrls: ['./request.css']
 })
 export class RequestComponent {
   displayNewRequestDialog = false;
-   displayDialog: boolean = false;
+  displayDialog: boolean = false;
+  displayStatusDialog = false;
   selectedRequest: any = null;
+  selectedStatusRequest: any = null;
 //  viewRequest(request: any) {
 //     this.selectedRequest = request;
 //     this.displayDialog = true;
@@ -24,8 +28,8 @@ export class RequestComponent {
     //this.selectedRequest = request;
     this.displayDialog = true;
   }
-onSaveRequest(form: NgForm) {
-  if (form.invalid) {
+onSaveRequest(form?: NgForm) {
+  if (form && form.invalid) {
     form.control.markAllAsTouched();
     return;
   }
@@ -51,9 +55,14 @@ onDataOutFileSelected(event: any) {
 
 
   viewRequest(request: any) {
-  this.selectedRequest = request;
-  this.displayDialog = true;
-}
+    this.selectedRequest = request;
+    this.displayDialog = true;
+  }
+
+  viewStatus(request: any) {
+    this.selectedStatusRequest = request;
+    this.displayStatusDialog = true;
+  }
   requestsData = [
     { esrNo: 'ESR001', name: 'John Smith', oem: 'BMW', zfProjectNumber: '8600000163' },
     { esrNo: 'ESR002', name: 'Sarah Johnson', oem: 'MB', zfProjectNumber: '8600000164' },

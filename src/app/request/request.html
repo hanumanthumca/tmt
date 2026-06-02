@@ -44,14 +44,12 @@
           (click)="viewRequest(request)"
           >
   </button>
-
-  <!-- <button pButton 
-          type="button" 
-          icon="pi pi-eye" 
-          class="p-button-rounded p-button-text p-button-info" 
-          (click)="viewRequest(request)"
-          >
-  </button> -->
+  <button pButton
+          type="button"
+          icon="pi pi-info-circle"
+          class="p-button-rounded p-button-text p-button-warning"
+          (click)="viewStatus(request)"
+          ></button>
 </td>
       </tr>
     </ng-template>
@@ -63,156 +61,13 @@
   </section>
 
   <!-- View Dialogu box -->
-   <!-- <p-dialog header="Request Details" [(visible)]="displayDialog" [modal]="true" [style]="{width: '30vw'}">
-  <div *ngIf="selectedRequest">
-    <p><strong>ESR No:</strong> 111{{selectedRequest.esrNo}}</p>
-    <p><strong>Requestor Name:</strong> {{selectedRequest.name}}</p>
-    <p><strong>OEM:</strong> {{selectedRequest.oem}}</p>
-    <p><strong>ZF Project Number:</strong> {{selectedRequest.zfProjectNumber}}</p>
-  </div>
-</p-dialog> -->
-<p-dialog header="Request Details" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [breakpoints]="{'960px': '90vw', '640px': '100vw'}">
-  <form *ngIf="selectedRequest" #viewForm="ngForm" class="space-y-6">
+  <p-dialog header="Request Details" [(visible)]="displayDialog" [modal]="true" [style]="{width: '60vw'}" [breakpoints]="{'960px': '90vw', '640px': '100vw'}">
+    <app-view-request *ngIf="selectedRequest" [request]="selectedRequest" (save)="onSaveRequest()" (close)="displayDialog=false"></app-view-request>
+  </p-dialog>
 
-    <!-- Request Details Section -->
-    <h3 class="text-lg font-semibold border-b pb-2">Request Details</h3>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium">ESR No</label>
-        <input type="text" [(ngModel)]="selectedRequest.esrNo" name="esrNo" class="w-full border rounded px-2 py-1" readonly />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Requester Name</label>
-        <input type="text" [(ngModel)]="selectedRequest.name" name="name" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Location</label>
-        <input type="text" [(ngModel)]="selectedRequest.location" name="location" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">OEM</label>
-        <input type="text" [(ngModel)]="selectedRequest.oem" name="oem" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Program Name</label>
-        <input type="text" [(ngModel)]="selectedRequest.programName" name="programName" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Req ID</label>
-        <input type="text" [(ngModel)]="selectedRequest.reqId" name="reqId" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">ZF Project Number</label>
-        <input type="text" [(ngModel)]="selectedRequest.zfProjectNumber" name="zfProjectNumber" class="w-full border rounded px-2 py-1" />
-      </div>
-    </div>
-
-    <!-- Execution Plan Section -->
-    <h3 class="text-lg font-semibold border-b pb-2">Execution Plan</h3>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium">Requested Delivery Date</label>
-        <input type="date" [(ngModel)]="selectedRequest.requestedDeliveryDate" name="requestedDeliveryDate" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Product Type</label>
-        <select [(ngModel)]="selectedRequest.productType" name="productType" class="w-full border rounded px-2 py-1">
-          <option value="electrical">Electrical</option>
-          <option value="mechanical">Mechanical</option>
-          <option value="software">Software</option>
-          <option value="system">System</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Type of Work</label>
-        <select [(ngModel)]="selectedRequest.typeOfWork" name="typeOfWork" class="w-full border rounded px-2 py-1">
-          <option value="Volume & Coverage">Volume & Coverage</option>
-          <option value="Design Study">Design Study</option>
-          <option value="Feasibility">Feasibility</option>
-          <option value="Validation">Validation</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Effort Summary Section -->
-    <h3 class="text-lg font-semibold border-b pb-2">Effort Summary</h3>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium">No. of Designs</label>
-        <input type="text" [(ngModel)]="selectedRequest.numberOfDesigns" name="numberOfDesigns" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Estimated Hours</label>
-        <input type="text" [(ngModel)]="selectedRequest.estimatedHours" name="estimatedHours" class="w-full border rounded px-2 py-1" />
-      </div>
-    </div>
-
-    <!-- Engineer Section -->
-    <h3 class="text-lg font-semibold border-b pb-2">Engineer Details</h3>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium">Engineer Name</label>
-        <input type="text" [(ngModel)]="selectedRequest.engineerName" name="engineerName" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Assigned Date</label>
-        <input type="date" [(ngModel)]="selectedRequest.assignedDate" name="assignedDate" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Planned Delivery Date</label>
-        <input type="date" [(ngModel)]="selectedRequest.plannedDeliveryDate" name="plannedDeliveryDate" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Quoted Hours</label>
-        <input type="text" [(ngModel)]="selectedRequest.quotedHours" name="quotedHours" class="w-full border rounded px-2 py-1" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Billed Hours</label>
-        <input type="text" [(ngModel)]="selectedRequest.billedHours" name="billedHours" class="w-full border rounded px-2 py-1" />
-      </div>
-    </div>
-
-    <!-- Other Details Section -->
-    <h3 class="text-lg font-semibold border-b pb-2">Other Details</h3>
-    <textarea [(ngModel)]="selectedRequest.otherDetails" name="otherDetails" class="w-full border rounded px-2 py-1" rows="4"></textarea>
-
-     <!-- Data In Tracker (Requester) -->
-    <h3 class="text-lg font-semibold border-b pb-2">Data In Tracker (Requester)</h3>
-    <div class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium">Message</label>
-        <textarea [(ngModel)]="selectedRequest.dataInMessage" name="dataInMessage" class="w-full border rounded px-2 py-1" rows="3"></textarea>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Attach Document</label>
-        <input type="file" (change)="onDataInFileSelected($event)" class="w-full border rounded px-2 py-1" />
-      </div>
-      <p class="text-xs text-gray-500">Timestamp auto-recorded</p>
-      <button type="button" pButton label="Add Entry" class="p-button-info"></button>
-    </div>
-
-    <!-- Data Out Tracker (Engineer) -->
-    <h3 class="text-lg font-semibold border-b pb-2">Data Out Tracker (Engineer)</h3>
-    <div class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium">Message</label>
-        <textarea [(ngModel)]="selectedRequest.dataOutMessage" name="dataOutMessage" class="w-full border rounded px-2 py-1" rows="3"></textarea>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Attach Document</label>
-        <input type="file" (change)="onDataOutFileSelected($event)" class="w-full border rounded px-2 py-1" />
-      </div>
-      <p class="text-xs text-gray-500">Completion requires at least one Data Out comment</p>
-      <button type="button" pButton label="Add Entry" class="p-button-success"></button>
-    </div>
-    <!-- Footer -->
-    <div class="flex justify-end space-x-4 pt-4 border-t">
-      <button type="button" pButton label="Save" class="p-button-success" (click)="onSaveRequest(viewForm)"></button>
-      <button type="button" pButton label="Close" class="p-button-secondary" (click)="displayDialog=false"></button>
-    </div>
-  </form>
-</p-dialog>
-
+  <p-dialog header="View Status" [(visible)]="displayStatusDialog" [modal]="true" [style]="{width: '50vw'}" [breakpoints]="{'960px': '90vw', '640px': '100vw'}">
+    <app-view-status *ngIf="selectedStatusRequest" [request]="selectedStatusRequest" (close)="displayStatusDialog=false"></app-view-status>
+  </p-dialog>
 
   <!-- New Request Dialog -->
   <p-dialog [(visible)]="displayNewRequestDialog" [header]="'Create a New Request'" [modal]="true" [style]="{width: '60vw'}" [breakpoints]="{'960px': '90vw', '640px': '100vw'}">

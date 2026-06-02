@@ -1,0 +1,131 @@
+<form #viewForm="ngForm" class="compact-dialog" (ngSubmit)="onSave(viewForm)">
+  <div class="summary-grid">
+    <div>
+      <label>ESR No</label>
+      <input type="text" [(ngModel)]="request.esrNo" name="esrNo" readonly />
+    </div>
+    <div>
+      <label>Requester</label>
+      <input type="text" [(ngModel)]="request.name" name="name" />
+    </div>
+    <div>
+      <label>OEM</label>
+      <input type="text" [(ngModel)]="request.oem" name="oem" />
+    </div>
+    <div>
+      <label>ZF Project #</label>
+      <input type="text" [(ngModel)]="request.zfProjectNumber" name="zfProjectNumber" />
+    </div>
+    <div>
+      <label>Req ID</label>
+      <input type="text" [(ngModel)]="request.reqId" name="reqId" />
+    </div>
+    <div>
+      <label>Requested Delivery</label>
+      <input type="date" [(ngModel)]="request.requestedDeliveryDate" name="requestedDeliveryDate" />
+    </div>
+  </div>
+
+  <details open>
+    <summary>Execution & Effort</summary>
+    <div class="section-grid">
+      <div>
+        <label>Product Type</label>
+        <select [(ngModel)]="request.productType" name="productType">
+          <option value="electrical">Electrical</option>
+          <option value="mechanical">Mechanical</option>
+          <option value="software">Software</option>
+          <option value="system">System</option>
+        </select>
+      </div>
+      <div>
+        <label>Type of Work</label>
+        <select [(ngModel)]="request.typeOfWork" name="typeOfWork">
+          <option value="Volume & Coverage">Volume & Coverage</option>
+          <option value="Design Study">Design Study</option>
+          <option value="Feasibility">Feasibility</option>
+          <option value="Validation">Validation</option>
+        </select>
+      </div>
+      <div>
+        <label>No. of Designs</label>
+        <input type="text" [(ngModel)]="request.numberOfDesigns" name="numberOfDesigns" />
+      </div>
+      <div>
+        <label>Estimated Hours</label>
+        <input type="text" [(ngModel)]="request.estimatedHours" name="estimatedHours" />
+      </div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>Engineer Details</summary>
+    <div class="section-grid">
+      <div>
+        <label>Engineer Name</label>
+        <input type="text" [(ngModel)]="request.engineerName" name="engineerName" />
+      </div>
+      <div>
+        <label>Assigned Date</label>
+        <input type="date" [(ngModel)]="request.assignedDate" name="assignedDate" />
+      </div>
+      <div>
+        <label>Planned Delivery</label>
+        <input type="date" [(ngModel)]="request.plannedDeliveryDate" name="plannedDeliveryDate" />
+      </div>
+      <div>
+        <label>Quoted Hours</label>
+        <input type="text" [(ngModel)]="request.quotedHours" name="quotedHours" />
+      </div>
+      <div>
+        <label>Billed Hours</label>
+        <input type="text" [(ngModel)]="request.billedHours" name="billedHours" />
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Other Details</summary>
+    <textarea [(ngModel)]="request.otherDetails" name="otherDetails" rows="4"></textarea>
+  </details>
+
+  <details>
+    <summary>Data In Tracker (Requester)</summary>
+    <div class="tracker-grid">
+      <div>
+        <label>Message</label>
+        <textarea [(ngModel)]="request.dataInMessage" name="dataInMessage" rows="3"></textarea>
+      </div>
+      <div>
+        <label>Attach Document</label>
+        <input type="file" (change)="onDataInFileSelected($event)" />
+        <p class="note">Timestamp auto-recorded</p>
+        <button type="button" pButton label="Add Entry" class="p-button-info"></button>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Data Out Tracker (Engineer)</summary>
+    <div class="tracker-grid">
+      <div>
+        <label>Message</label>
+        <textarea [(ngModel)]="request.dataOutMessage" name="dataOutMessage" rows="3"></textarea>
+      </div>
+      <div>
+        <label>Attach Document</label>
+        <input type="file" (change)="onDataOutFileSelected($event)" />
+        <p class="note">Completion requires at least one Data Out comment</p>
+        <button type="button" pButton label="Add Entry" class="p-button-success"></button>
+      </div>
+    </div>
+  </details>
+
+  <div class="form-footer">
+    <div></div>
+    <div class="footer-actions">
+      <button type="submit" pButton label="Save" class="p-button-success"></button>
+      <button type="button" pButton label="Close" class="p-button-secondary" (click)="close.emit()"></button>
+    </div>
+  </div>
+</form>

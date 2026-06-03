@@ -1,4 +1,129 @@
 <section class="page-panel">
   <h2>My Tasks</h2>
-  <p>View and manage your assigned tasks from this page.</p>
+  <p>Use the tabs to switch between Manager View, Requester View, and Engineer View.</p>
+
+  <p-tabs>
+    <p-tabpanel header="Manager View">
+      <p-table [value]="managerTasks" class="tasks-table" [tableStyle]="{ 'min-width': '65rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ESR No</th>
+            <th>Program</th>
+            <th>Product</th>
+            <th>Type of Work</th>
+            <th>Engineer</th>
+            <th>Req Month</th>
+            <th>Req Date</th>
+            <th>Delivery Date</th>
+            <th>Final Hours</th>
+            <th>FTQ</th>
+            <th>OTD</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.esrNo }}</td>
+            <td>{{ row.program }}</td>
+            <td>{{ row.product }}</td>
+            <td>{{ row.typeOfWork }}</td>
+            <td>{{ row.engineer }}</td>
+            <td>{{ row.reqMonth }}</td>
+            <td>{{ row.reqDate }}</td>
+            <td>{{ row.deliveryDate }}</td>
+            <td>{{ row.finalHours }}</td>
+            <td>
+              <p-select [options]="yesNoOptions" [(ngModel)]="row.ftq" optionLabel="label" class="ftq-dropdown"></p-select>
+            </td>
+            <td>
+              <p-select [options]="yesNoOptions" [(ngModel)]="row.otd" optionLabel="label" class="otd-dropdown"></p-select>
+            </td>
+            <td><button pButton type="button" label="Submit" class="p-button-outlined p-button-sm"></button></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabpanel>
+
+    <p-tabpanel header="Requester View">
+      <p-table [value]="requesterTasks" class="tasks-table" [tableStyle]="{ 'min-width': '65rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ESR No</th>
+            <th>Program</th>
+            <th>Product</th>
+            <th>Type of Work</th>
+            <th>Engineer</th>
+            <th>Req Month</th>
+            <th>Req Date</th>
+            <th>Delivery Date</th>
+            <th>Final Hours</th>
+            <th>FTQ</th>
+            <th>OTD</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.esrNo }}</td>
+            <td>{{ row.program }}</td>
+            <td>{{ row.product }}</td>
+            <td>{{ row.typeOfWork }}</td>
+            <td>{{ row.engineer }}</td>
+            <td>{{ row.reqMonth }}</td>
+            <td>{{ row.reqDate }}</td>
+            <td>{{ row.deliveryDate }}</td>
+            <td>{{ row.finalHours }}</td>
+            <td>
+              <p-select [options]="yesNoOptions" [(ngModel)]="row.ftq" optionLabel="label" class="ftq-dropdown"></p-select>
+            </td>
+            <td>
+              <p-select [options]="yesNoOptions" [(ngModel)]="row.otd" optionLabel="label" class="otd-dropdown"></p-select>
+            </td>
+            <td><button pButton type="button" label="Submit" class="p-button-outlined p-button-sm"></button></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabpanel>
+
+    <p-tabpanel header="Engineer View">
+      <p-table [value]="engineerTasks" class="tasks-table" [tableStyle]="{ 'min-width': '65rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ESR No</th>
+            <th>Program</th>
+            <th>Product</th>
+            <th>Type of Work</th>
+            <th>Engineer</th>
+            <th>Req Month</th>
+            <th>Req Date</th>
+            <th>Delivery Date</th>
+            <th>Final Hours</th>
+            <th>FTQ</th>
+            <th>OTD</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.esrNo }}</td>
+            <td>{{ row.program }}</td>
+            <td>{{ row.product }}</td>
+            <td>{{ row.typeOfWork }}</td>
+            <td>{{ row.engineer }}</td>
+            <td>{{ row.reqMonth }}</td>
+            <td>{{ row.reqDate }}</td>
+            <td>{{ row.deliveryDate }}</td>
+            <td>{{ row.finalHours }}</td>
+            <td>
+              <p-select [options]="yesNoOptions" [(ngModel)]="row.ftq" optionLabel="label" class="ftq-dropdown"></p-select>
+            </td>
+            <td>
+              <p-select [options]="yesNoOptions" [(ngModel)]="row.otd" optionLabel="label" class="otd-dropdown"></p-select>
+            </td>
+            <td><button pButton type="button" label="Submit" class="p-button-outlined p-button-sm"></button></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabpanel>
+  </p-tabs>
 </section>

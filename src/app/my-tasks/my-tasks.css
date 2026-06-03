@@ -9,6 +9,62 @@ h2 {
   color: #111827;
 }
 p {
-  margin: 0;
+  margin: 0 0 1.5rem;
   color: #475569;
+}
+
+/* Tabs Styling */
+:deep(.p-tabs) {
+  display: flex;
+  flex-direction: column;
+}
+
+:deep(.p-tablist) {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+:deep(.p-tab) {
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  color: #475569;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+:deep(.p-tab:hover) {
+  color: #1e40af;
+  background-color: #f0f9ff;
+}
+
+:deep(.p-tab.p-tab-active) {
+  color: #1e40af;
+  border-bottom-color: #3b82f6;
+}
+
+:deep(.p-tabpanels) {
+  padding: 0;
+}
+
+:deep(.p-tabpanel) {
+  padding: 0;
+}
+
+.tasks-table :deep(.p-datatable-thead > tr > th) {
+  background: #eff6ff;
+  color: #1e3a8a;
+  border-bottom: 1px solid #cbd5e1;
+  padding: 0.9rem 0.75rem;
+}
+.tasks-table :deep(.p-datatable-tbody > tr > td) {
+  padding: 0.85rem 0.75rem;
+  color: #0f172a;
+}
+.tasks-table :deep(.p-datatable-tbody > tr:nth-child(odd)) {
+  background: #f8fafc;
+}
+.tasks-table :deep(.p-datatable) {
+  border: none;
 }
